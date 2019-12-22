@@ -1,6 +1,6 @@
 import {PokemonSet} from '../global-types';
 
-export const physicalExcadrill = (): PokemonSet => {
+export const excadrill = (): PokemonSet => {
 	return {
 		name: "excadrill",
 		species: "excadrill",
@@ -18,7 +18,7 @@ export const physicalExcadrill = (): PokemonSet => {
 	}
 };
 
-export const physicalExcadrill2 = (): PokemonSet => {
+export const excadrill2 = (): PokemonSet => {
 	return {
 		name: "excadrill",
 		species: "excadrill",

@@ -1,14 +1,20 @@
 import * as Mysql from 'mysql';
-import {physicalDragapult2} from "../pokemons/dragapult";
-import {physicalExcadrill2} from "../pokemons/excadrill";
-import {hozyoGrimmsnarl} from "../pokemons/grimmsnarl";
-import {dmaxTogekiss} from "../pokemons/togekiss";
+import {grimmsnarl} from "../pokemons/grimmsnarl";
 import {physicalSnorlax} from "../pokemons/snorlax";
+import {dragapult2} from "../pokemons/dragapult";
+import {excadrill2} from "../pokemons/excadrill";
+import {dmaxTogekiss} from "../pokemons/togekiss";
 import {physicalCloyster} from "../pokemons/cloyster";
 
 function team(): PokemonSet[] {
-	//return generateRandomTeam();
-	return [physicalDragapult2(), physicalExcadrill2(), hozyoGrimmsnarl(), dmaxTogekiss(), physicalSnorlax(), physicalCloyster()]
+	// モスギス式アイアントパーティ
+	// return [grimmsnarl2(), physicalDurant(), hydreigon(), ditto(), physicalSnorlax(), mimikyu()];
+	// 世界元3位考案のスタンダード構築
+	return [dragapult2(), excadrill2(), grimmsnarl(), dmaxTogekiss(), physicalSnorlax(), physicalCloyster()]
+	// バイウールー軸トップ20ランカー
+	//	return [dubwool(), physicalExcadrill(), gyarados(), mimikyu2(), rotomWash(), dmaxTogekiss2()];
+	// サダイジャオニゴーリ構築
+	// return [sandaconda(), glalie(), mimikyu2(), hydreigon(), corviknight(), rotomHeat()];
 }
 
 // MySQLとのコネクションの作成
@@ -22,7 +28,7 @@ const conn = Mysql.createConnection({
 conn.connect();
 
 function setPokemon(teamId: number, pokemonSet: PokemonSet) {
-	const nature = pokemonSet.nature ? pokemonSet.name : 'Serious';
+	const nature = pokemonSet.nature ? pokemonSet.nature : 'Serious';
 	conn.query("INSERT INTO pokemons set ?", {
 		name: pokemonSet.name,
 		species: pokemonSet.species,
@@ -36,7 +42,7 @@ function setPokemon(teamId: number, pokemonSet: PokemonSet) {
 		level: pokemonSet.level,
 	}, function (error, results, fields) {
 		if (error) {
-			conn.rollback(function() {
+			conn.rollback(function () {
 				throw error;
 			});
 		}
@@ -46,17 +52,17 @@ function setPokemon(teamId: number, pokemonSet: PokemonSet) {
 }
 
 (async () => {
-	conn.beginTransaction(function(err) {
+	conn.beginTransaction(function (err) {
 		if (err) {
 			throw err;
 		}
 		conn.query("INSERT INTO teams set ?", {
-			name:'元世界3位のスタン',
+			name: '世界元3位考案のスタンダード構築',
 			rate: 1500
 		}, function (error, results, fields) {
 			if (error) {
 				//insertに失敗したら戻す
-				conn.rollback(function() {
+				conn.rollback(function () {
 					throw err;
 				});
 			}
@@ -65,9 +71,9 @@ function setPokemon(teamId: number, pokemonSet: PokemonSet) {
 				setPokemon(id, pokemonSet)
 			});
 
-			conn.commit(function(err) {
+			conn.commit(function (err) {
 				if (err) {
-					conn.rollback(function() {
+					conn.rollback(function () {
 						throw err;
 					});
 				}
