@@ -1,20 +1,22 @@
 import * as Mysql from 'mysql';
-import {grimmsnarl} from "../pokemons/grimmsnarl";
-import {physicalSnorlax} from "../pokemons/snorlax";
-import {dragapult2} from "../pokemons/dragapult";
-import {excadrill2} from "../pokemons/excadrill";
-import {dmaxTogekiss} from "../pokemons/togekiss";
-import {physicalCloyster} from "../pokemons/cloyster";
+import {darmanitan} from "../pokemons/darmanitan";
+import {gastrodon} from "../pokemons/gastrodon";
+import {physicalCloyster2} from "../pokemons/cloyster";
+import {whimsicott} from "../pokemons/whimsicott";
+import {mimikyuScarf} from "../pokemons/mimikyu";
+import {rotomHeat2} from "../pokemons/rotom";
 
 function team(): PokemonSet[] {
 	// モスギス式アイアントパーティ
 	// return [grimmsnarl2(), physicalDurant(), hydreigon(), ditto(), physicalSnorlax(), mimikyu()];
 	// 世界元3位考案のスタンダード構築
-	return [dragapult2(), excadrill2(), grimmsnarl(), dmaxTogekiss(), physicalSnorlax(), physicalCloyster()]
+	// return [dragapult2(), excadrill2(), grimmsnarl(), dmaxTogekiss(), physicalSnorlax(), physicalCloyster()]
 	// バイウールー軸トップ20ランカー
 	//	return [dubwool(), physicalExcadrill(), gyarados(), mimikyu2(), rotomWash(), dmaxTogekiss2()];
 	// サダイジャオニゴーリ構築
 	// return [sandaconda(), glalie(), mimikyu2(), hydreigon(), corviknight(), rotomHeat()];
+	// 世界2位
+	return [darmanitan(), gastrodon(), physicalCloyster2(), whimsicott(), mimikyuScarf(), rotomHeat2()]
 }
 
 // MySQLとのコネクションの作成
@@ -57,7 +59,7 @@ function setPokemon(teamId: number, pokemonSet: PokemonSet) {
 			throw err;
 		}
 		conn.query("INSERT INTO teams set ?", {
-			name: '世界元3位考案のスタンダード構築',
+			name: '世界2位',
 			rate: 1500
 		}, function (error, results, fields) {
 			if (error) {
