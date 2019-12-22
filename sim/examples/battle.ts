@@ -103,14 +103,23 @@ async function battle() {
 	p1.start();
 	p2.start();
 
+	let log = '';
 	(async () => {
 		let chunk;
 		// tslint:disable-next-line no-conditional-assignment
 		while ((chunk = await streams.omniscient.read())) {
+			log += chunk;
 			console.log(chunk);
 			if (chunk.includes('win')) {
 				console.log('result');
-				await updateRate(teams[0].id, teams[1].id, team1rate, team2rate, chunk.includes('Bot 1'));
+				const result = chunk.includes('Bot 1');
+				await conn.query("INSERT INTO battles set ?", {
+					team1_id: teams[0].id,
+					team2_id: teams[1].id,
+					result: result ? 1 : 2,
+					log: log
+				});
+				await updateRate(teams[0].id, teams[1].id, team1rate, team2rate, result);
 			}
 		}
 	})();
@@ -141,7 +150,7 @@ async function execute(times: number) {
 	}
 }
 
-execute(10).then(a => {
+execute(1).then(a => {
 	}
 );
 //conn.end();
