@@ -25,13 +25,16 @@ const rate = (currentRate: number, opponentRate: number, win: boolean): number =
 	}
 };
 
-async function getPokemonSet(teamId: number): Promise<PokemonSet[]> {
+export async function getPokemonIds(teamId: number): Promise<number[]> {
 	const rows: any[] = await conn.query("SELECT * FROM team_pokemons WHERE team_id = ?", teamId);
 	let pokemonIds: number[] = [];
 	rows.map(row => {
 		pokemonIds.push(row.pokemon_id);
 	});
+	return pokemonIds;
+}
 
+export async function getPokemons(pokemonIds: number[]) : Promise<PokemonSet[]> {
 	const result: PokemonSet[] = [];
 	const pokemons: any[] = await conn.query("SELECT * FROM pokemons WHERE id IN (?)", [pokemonIds]);
 	pokemons.map(pokemon => {
@@ -49,6 +52,12 @@ async function getPokemonSet(teamId: number): Promise<PokemonSet[]> {
 		};
 		result.push(pokemonModel);
 	});
+	return result;
+}
+
+export async function getPokemonSet(teamId: number): Promise<PokemonSet[]> {
+	let pokemonIds: number[] = await getPokemonIds(teamId);
+	const result: PokemonSet[] = await getPokemons(pokemonIds);
 	return result;
 }
 
