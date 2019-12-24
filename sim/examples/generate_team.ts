@@ -1,10 +1,10 @@
 import * as Mysql from 'mysql';
-import {darmanitan} from "../pokemons/darmanitan";
-import {gastrodon} from "../pokemons/gastrodon";
-import {physicalCloyster2} from "../pokemons/cloyster";
-import {whimsicott} from "../pokemons/whimsicott";
-import {mimikyuScarf} from "../pokemons/mimikyu";
-import {rotomHeat2} from "../pokemons/rotom";
+import {sirfetchd} from "../pokemons/sirfetchd";
+import {hydreigon2} from "../pokemons/hydreigon";
+import {durant2} from "../pokemons/durant";
+import {gengar} from "../pokemons/gengar";
+import {reuniclus} from "../pokemons/reuniclus";
+import {shiinotic1} from "../pokemons/shiinotic";
 
 function team(): PokemonSet[] {
 	// モスギス式アイアントパーティ
@@ -16,7 +16,9 @@ function team(): PokemonSet[] {
 	// サダイジャオニゴーリ構築
 	// return [sandaconda(), glalie(), mimikyu2(), hydreigon(), corviknight(), rotomHeat()];
 	// 世界2位
-	return [darmanitan(), gastrodon(), physicalCloyster2(), whimsicott(), mimikyuScarf(), rotomHeat2()]
+	// return [darmanitan(), gastrodon(), physicalCloyster2(), whimsicott(), mimikyuScarf(), rotomHeat2()]
+	// AI01
+	return [sirfetchd(), hydreigon2(), durant2(), gengar(), reuniclus(), shiinotic1()]
 }
 
 // MySQLとのコネクションの作成
@@ -59,7 +61,7 @@ function setPokemon(teamId: number, pokemonSet: PokemonSet) {
 			throw err;
 		}
 		conn.query("INSERT INTO teams set ?", {
-			name: '世界2位',
+			name: 'AI01',
 			rate: 1500
 		}, function (error, results, fields) {
 			if (error) {
