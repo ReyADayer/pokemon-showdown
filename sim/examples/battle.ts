@@ -2,6 +2,7 @@ import {BattleStream, getPlayerStreams} from '../battle-stream';
 import {Dex} from '../dex';
 import {RandomPlayerAI} from '../tools/random-player-ai';
 import * as Mysql from 'mysql';
+import {getPokemonIds, getPokemons} from "../db/query";
 
 const util = require('util');
 
@@ -25,39 +26,9 @@ const rate = (currentRate: number, opponentRate: number, win: boolean): number =
 	}
 };
 
-export async function getPokemonIds(teamId: number): Promise<number[]> {
-	const rows: any[] = await conn.query("SELECT * FROM team_pokemons WHERE team_id = ?", teamId);
-	let pokemonIds: number[] = [];
-	rows.map(row => {
-		pokemonIds.push(row.pokemon_id);
-	});
-	return pokemonIds;
-}
-
-export async function getPokemons(pokemonIds: number[]) : Promise<PokemonSet[]> {
-	const result: PokemonSet[] = [];
-	const pokemons: any[] = await conn.query("SELECT * FROM pokemons WHERE id IN (?)", [pokemonIds]);
-	pokemons.map(pokemon => {
-		const pokemonModel: PokemonSet = {
-			name: pokemon.name,
-			species: pokemon.species,
-			item: pokemon.item,
-			ability: pokemon.ability,
-			moves: pokemon.moves.split(','),
-			nature: pokemon.nature,
-			gender: pokemon.gender,
-			evs: JSON.parse(pokemon.evs),
-			ivs: JSON.parse(pokemon.ivs),
-			level: pokemon.level
-		};
-		result.push(pokemonModel);
-	});
-	return result;
-}
-
 export async function getPokemonSet(teamId: number): Promise<PokemonSet[]> {
-	let pokemonIds: number[] = await getPokemonIds(teamId);
-	const result: PokemonSet[] = await getPokemons(pokemonIds);
+	let pokemonIds: number[] = await getPokemonIds(conn, teamId);
+	const result: PokemonSet[] = await getPokemons(conn, pokemonIds);
 	return result;
 }
 
@@ -83,7 +54,7 @@ async function updateRate(team1id: number, team2id: number, team1rate: number, t
 
 
 async function battle() {
-	const teams: any[] = await conn.query("SELECT * FROM `teams` ORDER BY RAND() LIMIT 2;");
+	const teams: any[] = await conn.query("SELECT * FROM `teams` WHERE disable = 0 ORDER BY RAND() LIMIT 2;");
 
 	const team1 = await getPokemonSet(teams[0].id);
 	const team2 = await getPokemonSet(teams[1].id);
@@ -118,9 +89,7 @@ async function battle() {
 		// tslint:disable-next-line no-conditional-assignment
 		while ((chunk = await streams.omniscient.read())) {
 			log += chunk;
-			console.log(chunk);
 			if (chunk.includes('win')) {
-				console.log('result');
 				const result = chunk.includes('Bot 1');
 				await conn.query("INSERT INTO battles set ?", {
 					team1_id: teams[0].id,
@@ -159,7 +128,8 @@ async function execute(times: number) {
 	}
 }
 
-execute(1).then(a => {
+execute(1000).then(a => {
+	console.log('end')
 	}
 );
 //conn.end();

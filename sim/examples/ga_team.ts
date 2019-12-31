@@ -1,5 +1,5 @@
 import * as Mysql from 'mysql';
-import {getPokemonIds, getPokemons} from "./battle";
+import {getPokemonIds, getPokemons, getRandomPokemonId, getTeamName} from "../db/query";
 
 const util = require('util');
 
@@ -11,16 +11,6 @@ const conn = Mysql.createConnection({
 });
 
 conn.query = util.promisify(conn.query);
-
-async function getRandomPokemonId(ignorePokemons: string[], ignoreItems: string[]): Promise<number> {
-	const rows: any[] = await conn.query("SELECT * FROM pokemons WHERE species NOT IN (?) AND item NOT IN (?) ORDER BY RAND() LIMIT 1", [ignorePokemons, ignoreItems]);
-	return rows[0].id;
-}
-
-async function getTeamName(teamId: number): Promise<string> {
-	const teams: any[] = await conn.query("SELECT * FROM `teams` WHERE id = ?", teamId);
-	return teams[0].name
-}
 
 
 function getRandom5Ids(ids: number[]): number[] {
@@ -34,16 +24,17 @@ function getRandom5Ids(ids: number[]): number[] {
 }
 
 async function execute(teamId: number, suffix: string) {
-	const teamName = await getTeamName(teamId);
-	const pokemonIds = await getPokemonIds(teamId);
+	const teamName = await getTeamName(conn, teamId);
+	const pokemonIds = await getPokemonIds(conn, teamId);
 	const newIds = getRandom5Ids(pokemonIds);
+	newIds.shift();
 
-	const pokemonSet = await getPokemons(newIds);
+	const pokemonSet = await getPokemons(conn, newIds);
 
 	const ignorePokemons = pokemonSet.map(p => p.species);
 	const ignoreItems = pokemonSet.map(p => p.item);
 
-	const randomId = await getRandomPokemonId(ignorePokemons, ignoreItems)
+	const randomId = await getRandomPokemonId(conn, ignorePokemons, ignoreItems);
 
 	newIds.push(randomId);
 	conn.beginTransaction(function (err) {
@@ -63,7 +54,7 @@ async function execute(teamId: number, suffix: string) {
 			const id = results.insertId;
 			newIds.map(pokemonId => {
 				conn.query("INSERT INTO team_pokemons set ?",
-					{team_id: teamId, pokemon_id: pokemonId},
+					{team_id: id, pokemon_id: pokemonId},
 					function (err, results, fields) {
 						if (err) {
 							//insertに失敗したら戻す
@@ -88,5 +79,6 @@ async function execute(teamId: number, suffix: string) {
 	});
 }
 
-
-execute(1, 'gen1');
+for (let step = 0; step < 10; step++) {
+	execute(203, "gen01-" + step)
+}
