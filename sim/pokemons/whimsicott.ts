@@ -16,3 +16,18 @@ export const whimsicott = (): PokemonSet => {
 		level: 50
 	}
 };
+
+export const whimsicott2 = (): PokemonSet => {
+	return {
+		name: "Whimsicott",
+		species: "Whimsicott",
+		item: "Lagging Tail",
+		ability: "Prankster",
+		moves: ['Moonblast', 'Endeavor', 'Substitute', 'Switcheroo'],
+		nature: 'Timid',
+		gender: 'M',
+		evs: {hp: 252, atk: 0, def: 0, spa: 252, spd: 0, spe: 4},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50
+	}
+};
