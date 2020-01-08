@@ -179,3 +179,39 @@ export const dragapult7 = (): PokemonSet => {
 		pokeball: 'Master Ball',
 	}
 };
+
+export const dragapult8 = (): PokemonSet => {
+	return {
+		name: "dragapult",
+		species: "dragapult",
+		item: "Sitrus Berry",
+		ability: "Infiltrator",
+		moves: ['dracometeor', 'Hex', 'Will-O-Wisp', 'Light Screen'],
+		nature: 'Bold',
+		gender: 'M',
+		evs: {hp: 252, atk: 0, def: 180, spa: 20, spd: 4, spe: 52},
+		ivs: {hp: 31, atk: 0, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+		shiny: false,
+		happiness: 0,
+		pokeball: 'Master Ball',
+	}
+};
+
+export const dragapult9 = (): PokemonSet => {
+	return {
+		name: "dragapult",
+		species: "dragapult",
+		item: "Focus Sash",
+		ability: "Clear Body",
+		moves: ['Dragon Darts', 'Flamethrower', 'Sucker Punch', 'Will-O-Wisp'],
+		nature: 'Naive',
+		gender: 'M',
+		evs: {hp: 4, atk: 164, def: 84, spa: 4, spd: 0, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+		shiny: false,
+		happiness: 0,
+		pokeball: 'Master Ball',
+	}
+};

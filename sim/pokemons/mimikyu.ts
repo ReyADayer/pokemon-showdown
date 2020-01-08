@@ -134,3 +134,18 @@ export const mimikyu8 = (): PokemonSet => {
 		level: 50,
 	}
 };
+
+export const mimikyu9 = (): PokemonSet => {
+	return {
+		name: "mimikyu",
+		species: "mimikyu",
+		item: "Lax Incense",
+		ability: "Disguise",
+		moves: ['Curse', 'Thunder Wave', 'Pain Split', 'Substitute'],
+		nature: 'Timid',
+		gender: '',
+		evs: {hp: 4, atk: 0, def: 0, spa: 0, spd: 252, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};

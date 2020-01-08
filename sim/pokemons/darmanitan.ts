@@ -46,3 +46,18 @@ export const darmanitan3 = (): PokemonSet => {
 		level: 50
 	}
 };
+
+export const darmanitan4 = (): PokemonSet => {
+	return {
+		name: "Darmanitan",
+		species: "Darmanitan",
+		item: "Choice Scarf",
+		ability: "Gorilla Tactics",
+		moves: ['Superpower','Icicle Crash','Flare Blitz', 'U-turn'],
+		nature: 'Jolly',
+		gender: 'M',
+		evs: {hp: 4, atk: 76, def: 4, spa: 0, spd: 172, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50
+	}
+};

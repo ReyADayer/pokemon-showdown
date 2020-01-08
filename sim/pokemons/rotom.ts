@@ -60,6 +60,36 @@ export const rotomWash4 = (): PokemonSet => {
 	}
 };
 
+export const rotomWash5 = (): PokemonSet => {
+	return {
+		name: "Rotom",
+		species: "Rotom-Wash",
+		item: "Sitrus Berry",
+		ability: "Levitate",
+		moves: ['Nasty Plot', 'Volt Switch', 'Dark Pulse', 'Hydro Pump'],
+		nature: 'Bold',
+		gender: '',
+		evs: {hp: 252, atk: 0, def: 140, spa: 60, spd: 4, spe: 52},
+		ivs: {hp: 31, atk: 0, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};
+
+export const rotomWash6 = (): PokemonSet => {
+	return {
+		name: "Rotom",
+		species: "Rotom-Wash",
+		item: "Sitrus Berry",
+		ability: "Levitate",
+		moves: ['Nasty Plot', 'Volt Switch', 'Dark Pulse', 'Hydro Pump'],
+		nature: 'Bold',
+		gender: '',
+		evs: {hp: 252, atk: 0, def: 244, spa: 4, spd: 4, spe: 4},
+		ivs: {hp: 31, atk: 0, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};
+
 export const rotomHeat = (): PokemonSet => {
 	return {
 		name: "Rotom",

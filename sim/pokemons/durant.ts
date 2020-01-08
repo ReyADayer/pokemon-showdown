@@ -59,3 +59,33 @@ export const durant4 = (): PokemonSet => {
 		level: 50,
 	}
 };
+
+export const durant5 = (): PokemonSet => {
+	return {
+		name: "durant1",
+		species: "durant",
+		item: "Life Orb",
+		ability: "Hustle",
+		moves: ['Iron Head', 'Superpower', 'Thunder Fang', 'First Impression'],
+		nature: 'Jolly',
+		gender: '',
+		evs: {hp: 28, atk: 252, def: 0, spa: 0, spd: 0, spe: 228},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};
+
+export const durant6 = (): PokemonSet => {
+	return {
+		name: "durant1",
+		species: "durant",
+		item: "Occa Berry",
+		ability: "Hustle",
+		moves: ['Iron Head', 'Superpower', 'Thunder Fang', 'First Impression'],
+		nature: 'Jolly',
+		gender: '',
+		evs: {hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};
