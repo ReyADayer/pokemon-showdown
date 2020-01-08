@@ -45,6 +45,21 @@ export const rotomWash3 = (): PokemonSet => {
 	}
 };
 
+export const rotomWash4 = (): PokemonSet => {
+	return {
+		name: "Rotom",
+		species: "Rotom-Wash",
+		item: "Choice Specs",
+		ability: "Levitate",
+		moves: ['Discharge', 'Volt Switch', 'Dark Pulse', 'Hydro Pump'],
+		nature: 'Modest',
+		gender: '',
+		evs: {hp: 252, atk: 0, def: 0, spa: 196, spd: 0, spe: 60},
+		ivs: {hp: 31, atk: 0, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};
+
 export const rotomHeat = (): PokemonSet => {
 	return {
 		name: "Rotom",

@@ -44,3 +44,33 @@ export const cloyster3 = (): PokemonSet => {
 		level: 50,
 	}
 };
+
+export const cloyster4 = (): PokemonSet => {
+	return {
+		name: "cloyster",
+		species: "cloyster",
+		item: "Focus Sash",
+		ability: "Skill Link",
+		moves: ['Icicle Spear', 'Rock Blast', 'Ice Shard', 'Shell Smash'],
+		nature: 'Adamant',
+		gender: '',
+		evs: {hp: 0, atk: 252, def: 4, spa: 0, spd: 0, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};
+
+export const cloyster5 = (): PokemonSet => {
+	return {
+		name: "cloyster",
+		species: "cloyster",
+		item: "White Herb",
+		ability: "Shell Armor",
+		moves: ['Surf', 'Ice Beam', 'Mud Shot', 'Shell Smash'],
+		nature: 'Modest',
+		gender: '',
+		evs: {hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};

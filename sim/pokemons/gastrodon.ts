@@ -16,3 +16,18 @@ export const gastrodon = (): PokemonSet => {
 		level: 50
 	}
 };
+
+export const gastrodon2 = (): PokemonSet => {
+	return {
+		name: "Gastrodon",
+		species: "Gastrodon",
+		item: "Focus Sash",
+		ability: "Storm Drain",
+		moves: ['Scald', 'Earth Power', 'Counter', 'Mirror Coat'],
+		nature: 'Bold',
+		gender: '',
+		evs: {hp: 252, atk: 0, def: 252, spa: 4, spd: 0, spe: 0},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50
+	}
+};

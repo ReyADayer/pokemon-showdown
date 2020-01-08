@@ -125,3 +125,57 @@ export const dragapult4 = (): PokemonSet => {
 		pokeball: 'Master Ball',
 	}
 };
+
+export const dragapult5 = (): PokemonSet => {
+	return {
+		name: "dragapult",
+		species: "dragapult",
+		item: "Weakness Policy",
+		ability: "Clear Body",
+		moves: ['Dragon Darts', 'Fire Blast', 'Phantom Force', 'Fly'],
+		nature: 'Adamant',
+		gender: 'M',
+		evs: {hp: 236, atk: 196, def: 44, spa: 0, spd: 4, spe: 28},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+		shiny: false,
+		happiness: 0,
+		pokeball: 'Master Ball',
+	}
+};
+
+export const dragapult6 = (): PokemonSet => {
+	return {
+		name: "dragapult",
+		species: "dragapult",
+		item: "Lum Berry",
+		ability: "Infiltrator",
+		moves: ['dracometeor', 'Hex', 'Will-O-Wisp', 'Flamethrower'],
+		nature: 'Timid',
+		gender: 'M',
+		evs: {hp: 220, atk: 0, def: 252, spa: 28, spd: 4, spe: 4},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+		shiny: false,
+		happiness: 0,
+		pokeball: 'Master Ball',
+	}
+};
+
+export const dragapult7 = (): PokemonSet => {
+	return {
+		name: "dragapult",
+		species: "dragapult",
+		item: "Assault Vest",
+		ability: "Infiltrator",
+		moves: ['Dragon Darts', 'Flamethrower', 'Phantom Force', 'U-turn'],
+		nature: 'Naive',
+		gender: 'M',
+		evs: {hp: 252, atk: 228, def: 12, spa: 0, spd: 12, spe: 4},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+		shiny: false,
+		happiness: 0,
+		pokeball: 'Master Ball',
+	}
+};

@@ -29,3 +29,18 @@ export const dmaxTogekiss2 = (): PokemonSet => {
 		level: 50,
 	}
 };
+
+export const togekiss1 = (): PokemonSet => {
+	return {
+		name: "togekiss",
+		species: "togekiss",
+		item: "Life Orb",
+		ability: "Serene Grace",
+		moves: ['Air Slash', 'Dazzling Gleam', 'Fire Blast', 'Grass Knot'],
+		nature: 'Modest',
+		gender: '',
+		evs: {hp: 4, atk: 0, def: 0, spa: 252, spd: 0, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};

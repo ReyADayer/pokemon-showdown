@@ -31,3 +31,18 @@ export const sirfetchd2 = (): PokemonSet => {
 		level: 50,
 	}
 };
+
+export const sirfetchd3 = (): PokemonSet => {
+	return {
+		name: "Sirfetch'd",
+		species: "Sirfetch'd",
+		item: "Focus Sash",
+		ability: "Scrappy",
+		moves: ['Close Combat', 'Final Gambit', 'Poison Jab', 'Feint'],
+		nature: 'Adamant',
+		gender: '',
+		evs: {hp: 236, atk: 228, def: 0, spa: 0, spd: 0, spe: 44},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};
