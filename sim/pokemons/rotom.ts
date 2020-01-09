@@ -134,3 +134,18 @@ export const rotomCut = (): PokemonSet => {
 		level: 50,
 	}
 };
+
+export const rotomCut2 = (): PokemonSet => {
+	return {
+		name: "Rotom",
+		species: "Rotom-Cut",
+		item: "Sitrus Berry",
+		ability: "Levitate",
+		moves: ['Nasty Plot', 'Discharge', 'Dark Pulse', 'Leaf Storm'],
+		nature: 'Bold',
+		gender: '',
+		evs: {hp: 252, atk: 0, def: 92, spa: 140, spd: 4, spe: 20},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};

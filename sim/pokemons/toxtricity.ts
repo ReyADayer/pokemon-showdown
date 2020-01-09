@@ -16,3 +16,18 @@ export const toxtricity = (): PokemonSet => {
 		level: 50,
 	}
 };
+
+export const toxtricity2 = (): PokemonSet => {
+	return {
+		name: "Toxtricity",
+		species: "Toxtricity",
+		item: "Assault Vest",
+		ability: "Punk Rock",
+		moves: ['Boomburst', 'Overdrive', 'Hex', 'Nuzzle'],
+		nature: 'Modest',
+		gender: '',
+		evs: {hp: 132, atk: 0, def: 4, spa: 140, spd: 12, spe: 220},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};

@@ -89,3 +89,39 @@ export const excadrill5 = (): PokemonSet => {
 		pokeball: 'Master Ball',
 	}
 };
+
+export const excadrill6 = (): PokemonSet => {
+	return {
+		name: "excadrill",
+		species: "excadrill",
+		item: "Life Orb",
+		ability: "Sand Rush",
+		moves: ['Earthquake', 'Iron Head', 'Rock Slide', 'Swords Dance'],
+		nature: 'Adamant',
+		gender: 'M',
+		evs: {hp: 4, atk: 252, def: 76, spa: 0, spd: 0, spe: 180},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+		shiny: false,
+		happiness: 0,
+		pokeball: 'Master Ball',
+	}
+};
+
+export const excadrill7 = (): PokemonSet => {
+	return {
+		name: "excadrill",
+		species: "excadrill",
+		item: "Chople Berry",
+		ability: "Sand Rush",
+		moves: ['Earthquake', 'Iron Head', 'Rock Tomb', 'Horn Drill'],
+		nature: 'Jolly',
+		gender: 'M',
+		evs: {hp: 0, atk: 204, def: 100, spa: 0, spd: 0, spe: 204},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+		shiny: false,
+		happiness: 0,
+		pokeball: 'Master Ball',
+	}
+};

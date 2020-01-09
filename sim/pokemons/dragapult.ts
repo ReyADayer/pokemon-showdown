@@ -215,3 +215,93 @@ export const dragapult9 = (): PokemonSet => {
 		pokeball: 'Master Ball',
 	}
 };
+
+export const dragapult10 = (): PokemonSet => {
+	return {
+		name: "dragapult",
+		species: "dragapult",
+		item: "Focus Sash",
+		ability: "Infiltrator",
+		moves: ['Dragon Darts', 'Flamethrower', 'Sucker Punch', 'Will-O-Wisp'],
+		nature: 'Naughty',
+		gender: 'M',
+		evs: {hp: 0, atk: 252, def: 0, spa: 4, spd: 0, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+		shiny: false,
+		happiness: 0,
+		pokeball: 'Master Ball',
+	}
+};
+
+export const dragapult11 = (): PokemonSet => {
+	return {
+		name: "dragapult",
+		species: "dragapult",
+		item: "Leftovers",
+		ability: "Infiltrator",
+		moves: ['dracometeor', 'Hex', 'Will-O-Wisp', 'Substitute'],
+		nature: 'Timid',
+		gender: 'M',
+		evs: {hp: 252, atk: 0, def: 252, spa: 4, spd: 0, spe: 0},
+		ivs: {hp: 31, atk: 0, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+		shiny: false,
+		happiness: 0,
+		pokeball: 'Master Ball',
+	}
+};
+
+export const dragapult12 = (): PokemonSet => {
+	return {
+		name: "dragapult",
+		species: "dragapult",
+		item: "Focus Sash",
+		ability: "Clear Body",
+		moves: ['Dragon Darts', 'Flamethrower', 'Sucker Punch', 'Will-O-Wisp'],
+		nature: 'Naive',
+		gender: 'M',
+		evs: {hp: 0, atk: 252, def: 0, spa: 4, spd: 0, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+		shiny: false,
+		happiness: 0,
+		pokeball: 'Master Ball',
+	}
+};
+
+export const dragapult13 = (): PokemonSet => {
+	return {
+		name: "dragapult",
+		species: "dragapult",
+		item: "Leftovers",
+		ability: "Infiltrator",
+		moves: ['Dragon Pulse', 'Hex', 'Will-O-Wisp', 'Substitute'],
+		nature: 'Timid',
+		gender: 'M',
+		evs: {hp: 252, atk: 0, def: 156, spa: 92, spd: 4, spe: 4},
+		ivs: {hp: 31, atk: 0, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+		shiny: false,
+		happiness: 0,
+		pokeball: 'Master Ball',
+	}
+};
+
+export const dragapult14 = (): PokemonSet => {
+	return {
+		name: "dragapult",
+		species: "dragapult",
+		item: "Expert Belt",
+		ability: "Infiltrator",
+		moves: ['dracometeor', 'Shadow Ball', 'Fire Blast', 'Thunderbolt'],
+		nature: 'Modest',
+		gender: 'M',
+		evs: {hp: 0, atk: 0, def: 0, spa: 252, spd: 4, spe: 252},
+		ivs: {hp: 31, atk: 0, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+		shiny: false,
+		happiness: 0,
+		pokeball: 'Master Ball',
+	}
+};

@@ -1,5 +1,10 @@
 import * as Mysql from 'mysql';
 import {
+	dragapult10,
+	dragapult11,
+	dragapult12,
+	dragapult13,
+	dragapult14,
 	dragapult3,
 	dragapult4,
 	dragapult5,
@@ -11,11 +16,14 @@ import {
 	dragapultScarf2,
 	dragapultScarf3
 } from "../pokemons/dragapult";
-import {darmanitan2, darmanitan3, darmanitan4} from "../pokemons/darmanitan";
-import {toxapex, toxapex2} from "../pokemons/toxapex";
+import {darmanitan2, darmanitan3, darmanitan4, darmanitan5} from "../pokemons/darmanitan";
+import {toxapex, toxapex2, toxapex3} from "../pokemons/toxapex";
 import {quagsire} from "../pokemons/quagsire";
-import {tyranitar, tyranitar2} from "../pokemons/tyranitar";
+import {tyranitar, tyranitar2, tyranitar3, tyranitar4, tyranitar5} from "../pokemons/tyranitar";
 import {
+	corviknight10,
+	corviknight11,
+	corviknight12,
 	corviknight2,
 	corviknight3,
 	corviknight4,
@@ -25,10 +33,21 @@ import {
 	corviknight8,
 	corviknight9
 } from "../pokemons/corviknight";
-import {excadrill3, excadrill4, excadrill5} from "../pokemons/excadrill";
-import {hydreigon3, hydreigon4, hydreigon5, hydreigon6, hydreigon7, hydreigon8} from "../pokemons/hydreigon";
+import {excadrill3, excadrill4, excadrill5, excadrill6, excadrill7} from "../pokemons/excadrill";
+import {
+	hydreigon3,
+	hydreigon4,
+	hydreigon5,
+	hydreigon6,
+	hydreigon7,
+	hydreigon8,
+	hydreigon9
+} from "../pokemons/hydreigon";
 import {
 	mimikyu,
+	mimikyu10,
+	mimikyu11,
+	mimikyu12,
 	mimikyu2,
 	mimikyu3,
 	mimikyu4,
@@ -41,35 +60,39 @@ import {
 import {sylveon, sylveon2} from "../pokemons/sylveon";
 import {typenull, typenull2, typenull3} from "../pokemons/typenull";
 import {durant3, durant4, durant5, durant6} from "../pokemons/durant";
-import {rotomCut, rotomWash2, rotomWash3, rotomWash4, rotomWash5, rotomWash6} from "../pokemons/rotom";
+import {rotomCut, rotomCut2, rotomWash2, rotomWash3, rotomWash4, rotomWash5, rotomWash6} from "../pokemons/rotom";
 import {hippowdon, hippowdon2, hippowdon3, hippowdon4} from "../pokemons/hippowdon";
 import {whimsicott2, whimsicott3} from "../pokemons/whimsicott";
 import {drednaw} from "../pokemons/drednaw";
 import {cloyster3, cloyster4, cloyster5} from "../pokemons/cloyster";
-import {snorlax2} from "../pokemons/snorlax";
+import {snorlax2, snorlax3, snorlax4, snorlax5} from "../pokemons/snorlax";
 import {cinderace, cinderace2, cinderace3} from "../pokemons/cinderace";
-import {dracozolt} from "../pokemons/dracozolt";
+import {dracozolt, dracozolt2} from "../pokemons/dracozolt";
 import {alcremie} from "../pokemons/alcremie";
 import {greedent} from "../pokemons/greedent";
 import {umbreon, umbreon2} from "../pokemons/umbreon";
-import {togekiss1} from "../pokemons/togekiss";
+import {dmaxTogekiss3, dmaxTogekiss4, dmaxTogekiss5, togekiss1} from "../pokemons/togekiss";
 import {gastrodon2} from "../pokemons/gastrodon";
 import {aegislash} from "../pokemons/aegislash";
 import {gardevoir} from "../pokemons/gardevoir";
-import {dracovish} from "../pokemons/dracovish";
+import {dracovish, dracovish2} from "../pokemons/dracovish";
 import {grimmsnarl3, grimmsnarl4} from "../pokemons/grimmsnarl";
 import {glalie2} from "../pokemons/glalie";
-import {seismitoad, seismitoad2} from "../pokemons/seismitoad";
-import {toxtricity} from "../pokemons/toxtricity";
+import {seismitoad, seismitoad2, seismitoad3} from "../pokemons/seismitoad";
+import {toxtricity, toxtricity2} from "../pokemons/toxtricity";
 import {diggersby} from "../pokemons/diggersby";
 import {beartic} from "../pokemons/beartic";
 import {coalossal} from "../pokemons/coalossal";
 import {sirfetchd3} from "../pokemons/sirfetchd";
-import {gyarados, gyarados2} from "../pokemons/gyarados";
+import {gyarados, gyarados2, gyarados3} from "../pokemons/gyarados";
 import {charizard} from "../pokemons/charizard";
 import {gothitelle} from "../pokemons/gothitelle";
 import {hawlucha, hawlucha2} from "../pokemons/hawlucha";
 import {milotic} from "../pokemons/milotic";
+import {inteleon} from "../pokemons/inteleon";
+import {duraludon} from "../pokemons/duraludon";
+import {doublade} from "../pokemons/doublade";
+import {bisharp} from "../pokemons/bisharp";
 
 function team(): PokemonSet[] {
 	// モスギス式アイアントパーティ
@@ -119,7 +142,21 @@ function team(): PokemonSet[] {
 	// http://irohapoke15.hatenablog.com/entry/2020/01/02/161628
 	return [typenull3(), durant5(), dragapultScarf2(), rotomWash5(), sylveon2(), hawlucha2()];
 	// http://toropoke.hatenablog.com/entry/2020/01/01/172212
-	return [durant6(), mimikyu2(), hydreigon8(), rotomWash6(), darmanitan4(), dragapult9()]
+	return [durant6(), mimikyu2(), hydreigon8(), rotomWash6(), darmanitan4(), dragapult9()];
+	// http://harupokeart.blog.fc2.com/blog-entry-26.html
+	return [tyranitar3(), excadrill6(), inteleon(), dragapult10(), rotomCut2(), mimikyu10()];
+	// https://asahinapoke.hatenablog.com/entry/2020/01/02/111138
+	return [dracozolt2(), toxapex3(), corviknight10(), dragapult11(), tyranitar4(), dmaxTogekiss3()];
+	// http://p-poke.hatenablog.com/entry/2020/01/01/162819
+	return [dragapult12(), mimikyu2(), hydreigon9(), snorlax3(), duraludon(), darmanitan5()];
+	// http://xxcr7xx.hatenadiary.jp/entry/2020/01/01/162706
+	//return [mimikyu11()];
+	// http://albapoke0818.hatenablog.com/entry/2020/01/01/234439
+	return [tyranitar5(), dragapult13(), corviknight11(), snorlax4(), seismitoad3(), mimikyu12()];
+	// http://nikonikopoke.hatenablog.com/entry/2020/01/02/012811
+	return [dmaxTogekiss4(), doublade(), gyarados3(), snorlax5(), excadrill7(), dragapult14()];
+	// http://blog.livedoor.jp/mirai_minyato/archives/81876541.html
+	return [toxtricity2(), bisharp(), dmaxTogekiss5(), corviknight12(), mimikyu11(), dracovish2()];
 }
 
 // MySQLとのコネクションの作成

@@ -136,3 +136,48 @@ export const corviknight9 = (): PokemonSet => {
 		level: 50
 	}
 };
+
+export const corviknight10 = (): PokemonSet => {
+	return {
+		name: "Corviknight",
+		species: "Corviknight",
+		item: "Sitrus Berry",
+		ability: "Mirror Armor",
+		moves: ['Iron Head', 'Body Slam', 'Iron Defense', 'Roost'],
+		nature: 'Impish',
+		gender: '',
+		evs: {hp: 252, atk: 0, def: 252, spa: 0, spd: 4, spe: 0},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50
+	}
+};
+
+export const corviknight11 = (): PokemonSet => {
+	return {
+		name: "Corviknight",
+		species: "Corviknight",
+		item: "Maranga Berry",
+		ability: "Mirror Armor",
+		moves: ['Brave Bird', 'Body Slam', 'Taunt', 'Roost'],
+		nature: 'Jolly',
+		gender: '',
+		evs: {hp: 140, atk: 4, def: 4, spa: 0, spd: 108, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50
+	}
+};
+
+export const corviknight12 = (): PokemonSet => {
+	return {
+		name: "Corviknight",
+		species: "Corviknight",
+		item: "Maranga Berry",
+		ability: "Mirror Armor",
+		moves: ['Brave Bird', 'Bulk Up', 'Taunt', 'Roost'],
+		nature: 'Jolly',
+		gender: '',
+		evs: {hp: 252, atk: 4, def: 4, spa: 0, spd: 68, spe: 180},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50
+	}
+};

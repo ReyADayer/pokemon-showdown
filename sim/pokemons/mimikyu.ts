@@ -149,3 +149,48 @@ export const mimikyu9 = (): PokemonSet => {
 		level: 50,
 	}
 };
+
+export const mimikyu10 = (): PokemonSet => {
+	return {
+		name: "mimikyu",
+		species: "mimikyu",
+		item: "Kee Berry",
+		ability: "Disguise",
+		moves: ['Shadow Claw', 'Play Rough', 'Shadow Sneak', 'Swords Dance'],
+		nature: 'Jolly',
+		gender: '',
+		evs: {hp: 4, atk: 244, def: 4, spa: 0, spd: 4, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};
+
+export const mimikyu11 = (): PokemonSet => {
+	return {
+		name: "mimikyu",
+		species: "mimikyu",
+		item: "Bright Powder",
+		ability: "Disguise",
+		moves: ['Curse', 'Play Rough', 'Pain Split', 'Substitute'],
+		nature: 'Jolly',
+		gender: '',
+		evs: {hp: 4, atk: 252, def: 0, spa: 0, spd: 0, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};
+
+export const mimikyu12 = (): PokemonSet => {
+	return {
+		name: "mimikyu",
+		species: "mimikyu",
+		item: "Life Orb",
+		ability: "Disguise",
+		moves: ['Curse', 'Play Rough', 'Shadow Sneak', 'Trick Room'],
+		nature: 'Adamant',
+		gender: '',
+		evs: {hp: 228, atk: 156, def: 124, spa: 0, spd: 0, spe: 0},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};

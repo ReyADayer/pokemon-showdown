@@ -119,3 +119,18 @@ export const hydreigon8 = (): PokemonSet => {
 		level: 50
 	}
 };
+
+export const hydreigon9 = (): PokemonSet => {
+	return {
+		name: "hydreigon9",
+		species: "hydreigon",
+		item: "Choice Scarf",
+		ability: "Levitate",
+		moves: ['Dark Pulse', 'dracometeor', 'Flamethrower', 'Flash Cannon'],
+		nature: 'Timid',
+		gender: '',
+		evs: {hp: 0, atk: 0, def: 4, spa: 252, spd: 0, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50
+	}
+};

@@ -31,3 +31,18 @@ export const seismitoad2 = (): PokemonSet => {
 		level: 50,
 	}
 };
+
+export const seismitoad3 = (): PokemonSet => {
+	return {
+		name: "Seismitoad3",
+		species: "Seismitoad",
+		item: "Assault Vest",
+		ability: "Swift Swim",
+		moves: ['Scald', 'Earth Power', 'Grass Knot', 'Sludge Wave'],
+		nature: 'Modest',
+		gender: '',
+		evs: {hp: 4, atk: 0, def: 4, spa: 244, spd: 96, spe: 252},
+		ivs: {hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31},
+		level: 50,
+	}
+};
