@@ -1,7 +1,9 @@
 import * as Mysql from 'mysql';
 import {generateRandomTeam} from "../pokemons/random_team";
+import {generateExTeam} from "./ex_team";
 
 async function team(): Promise<PokemonSet[]> {
+	return generateExTeam();
 	return generateRandomTeam();
 }
 
@@ -16,7 +18,7 @@ const conn = Mysql.createConnection({
 conn.connect();
 
 function setPokemon(teamId: number, pokemonSet: PokemonSet) {
-	const nature = pokemonSet.nature ? pokemonSet.name : 'Serious';
+	const nature = pokemonSet.nature ? pokemonSet.nature : 'Serious';
 	conn.query("INSERT INTO pokemons set ?", {
 		name: pokemonSet.name,
 		species: pokemonSet.species,
@@ -35,7 +37,7 @@ function setPokemon(teamId: number, pokemonSet: PokemonSet) {
 }
 
 (async () => {
-	for (let step = 0; step < 100; step++) {
+	for (let step = 0; step < 1; step++) {
 		try {
 			await team().then(team => {
 				conn.query("INSERT INTO teams set ?", {
@@ -52,3 +54,5 @@ function setPokemon(teamId: number, pokemonSet: PokemonSet) {
 		}
 	}
 })();
+
+console.log("end");

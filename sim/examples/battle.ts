@@ -3,6 +3,9 @@ import {Dex} from '../dex';
 import {RandomPlayerAI} from '../tools/random-player-ai';
 import * as Mysql from 'mysql';
 import {getPokemonIds, getPokemons} from "../db/query";
+import {PokeaiPlayerAI} from "../tools/pokeai-player-ai";
+import {TeamGenerator} from "../tools/exhaustive-runner";
+import {PRNG} from "../prng";
 
 const util = require('util');
 
@@ -73,8 +76,8 @@ async function battle() {
 		team: Dex.packTeam(team2),
 	};
 
-	const p1 = new RandomPlayerAI(streams.p1);
-	const p2 = new RandomPlayerAI(streams.p2);
+	const p1 = new PokeaiPlayerAI(streams.p1);
+	const p2 = new PokeaiPlayerAI(streams.p2);
 
 	streams.omniscient.write(`>start ${JSON.stringify(spec)}
 >player p1 ${JSON.stringify(p1spec)}
@@ -128,7 +131,7 @@ async function execute(times: number) {
 	}
 }
 
-execute(1000).then(a => {
+execute(1).then(a => {
 	console.log('end')
 	}
 );

@@ -1,7 +1,7 @@
 import {Connection} from "mysql";
 
 export async function getRandomPokemonId(conn: Connection, ignorePokemons: string[], ignoreItems: string[]): Promise<number> {
-	const rows: any[] = await conn.query("SELECT * FROM pokemons WHERE species NOT IN (?) AND item NOT IN (?) ORDER BY RAND() LIMIT 1", [ignorePokemons, ignoreItems]);
+	const rows: any[] = await conn.query("SELECT * FROM pokemons WHERE species NOT IN (?) AND item NOT IN (?) AND disable = 0 ORDER BY RAND() LIMIT 1", [ignorePokemons, ignoreItems]);
 	return rows[0].id;
 }
 

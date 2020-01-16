@@ -80,5 +80,5 @@ async function execute(teamId: number, suffix: string) {
 }
 
 for (let step = 0; step < 10; step++) {
-	execute(203, "gen01-" + step)
+	execute(341, "-gen01_" + step)
 }

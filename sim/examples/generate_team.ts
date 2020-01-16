@@ -94,6 +94,8 @@ import {duraludon} from "../pokemons/duraludon";
 import {doublade} from "../pokemons/doublade";
 import {bisharp} from "../pokemons/bisharp";
 
+var teamName = '';
+
 function team(): PokemonSet[] {
 	// モスギス式アイアントパーティ
 	// return [grimmsnarl2(), physicalDurant(), hydreigon(), ditto(), physicalSnorlax(), mimikyu()];
@@ -107,55 +109,55 @@ function team(): PokemonSet[] {
 	// return [darmanitan(), gastrodon(), physicalCloyster2(), whimsicott(), mimikyuScarf(), rotomHeat2()]
 	// AI01
 	// return [sirfetchd(), hydreigon2(), durant2(), gengar(), reuniclus(), shiinotic1()];
-	// http://uederno1.hatenablog.com/entry/2020/01/01/171441
-	return [dragapultScarf1(), darmanitan2(), toxapex(), quagsire(), tyranitar(), corviknight2()];
-	// http://einz.hatenablog.com/entry/2020/01/01/135314
-	return [excadrill3(), dragapult3(), corviknight3(), hydreigon3(), mimikyu3(), sylveon()];
-	// https://note.com/futurepop/n/nc7496dd64eaf
-	return [typenull(), durant3(), dragapultScarf2(), rotomWash2(), mimikyu4(), hippowdon()];
-	// http://mizuhamalphas.hatenablog.com/entry/2020/01/01/125404
-	return [whimsicott2(), drednaw(), cloyster3(), snorlax2(), rotomCut(), cinderace()];
-	// http://mobchara-eevee.hatenablog.com/entry/2020/01/01/132136
-	return [dragapult4(), cinderace2(), dracozolt(), alcremie(), greedent(), corviknight4()];
-	// http://blog.livedoor.jp/tama_poke/archives/1076576471.html
-	return [tyranitar2(), corviknight5(), dragapultScarf3(), rotomWash3(), umbreon(), mimikyu5()];
-	// https://www.asamipoke.com/entry/2020/01/01/172111
-	return [darmanitan3(), corviknight6(), excadrill4(), togekiss1(), gastrodon2(), umbreon2()];
-	// https://nicoyazawa.hatenablog.com/entry/2020/01/01/115108
-	return [hippowdon2(), excadrill5(), hydreigon4(), aegislash(), mimikyu6(), cinderace2()];
-	// http://nine-poke.hatenablog.com/entry/2020/01/01/234815
-	return [gardevoir(), hydreigon5(), hippowdon3(), rotomWash4(), corviknight7(), mimikyu7()];
-	// http://radian0202.hatenablog.com/entry/2020/01/02/082417
-	return [dracovish(), corviknight8(), grimmsnarl3(), glalie2(), seismitoad(), toxtricity()];
-	// https://pokesol.com/team/party4
-	return [dragapult5(), mimikyu(), cloyster4(), diggersby(), hydreigon6(), cinderace3()];
-	// http://barapoke.hatenablog.com/entry/2020/01/02/152921
-	return [beartic(), seismitoad2(), coalossal(), dragapult6(), mimikyu7(), umbreon()];
-	// http://yojyosyugi.hatenablog.com/entry/2020/01/02/185835
-	return [sirfetchd3(), grimmsnarl4(), mimikyu8(), gyarados2(), cloyster5(), durant4()];
-	// http://kuuri-yatume.hatenablog.com/entry/2020/01/02/214055
-	return [umbreon(), dragapult7(), toxapex2(), hydreigon7(), coalossal(), corviknight9()];
-	// https://pokekare.info/null_ant/
-	return [typenull2(), durant5(), hippowdon4(), charizard(), gyarados(), dragapult8()];
-	// http://warbler-p.hatenablog.jp/entry/2020/01/01/225057
-	return [whimsicott3(), gothitelle(), hawlucha(), mimikyu9(), hydreigon6(), milotic()];
-	// http://irohapoke15.hatenablog.com/entry/2020/01/02/161628
-	return [typenull3(), durant5(), dragapultScarf2(), rotomWash5(), sylveon2(), hawlucha2()];
-	// http://toropoke.hatenablog.com/entry/2020/01/01/172212
-	return [durant6(), mimikyu2(), hydreigon8(), rotomWash6(), darmanitan4(), dragapult9()];
-	// http://harupokeart.blog.fc2.com/blog-entry-26.html
-	return [tyranitar3(), excadrill6(), inteleon(), dragapult10(), rotomCut2(), mimikyu10()];
-	// https://asahinapoke.hatenablog.com/entry/2020/01/02/111138
-	return [dracozolt2(), toxapex3(), corviknight10(), dragapult11(), tyranitar4(), dmaxTogekiss3()];
-	// http://p-poke.hatenablog.com/entry/2020/01/01/162819
-	return [dragapult12(), mimikyu2(), hydreigon9(), snorlax3(), duraludon(), darmanitan5()];
-	// http://xxcr7xx.hatenadiary.jp/entry/2020/01/01/162706
+	// teamName = 'http://uederno1.hatenablog.com/entry/2020/01/01/171441';
+	// return [dragapultScarf1(), darmanitan2(), toxapex(), quagsire(), tyranitar(), corviknight2()];
+	// teamName = 'http://einz.hatenablog.com/entry/2020/01/01/135314';
+	// return [excadrill3(), dragapult3(), corviknight3(), hydreigon3(), mimikyu3(), sylveon()];
+	// teamName = 'https://note.com/futurepop/n/nc7496dd64eaf';
+	// return [typenull(), durant3(), dragapultScarf2(), rotomWash2(), mimikyu4(), hippowdon()];
+	// teamName = 'http://mizuhamalphas.hatenablog.com/entry/2020/01/01/125404';
+	// return [whimsicott2(), drednaw(), cloyster3(), snorlax2(), rotomCut(), cinderace()];
+	// teamName = 'http://mobchara-eevee.hatenablog.com/entry/2020/01/01/132136';
+	// return [dragapult4(), cinderace2(), dracozolt(), alcremie(), greedent(), corviknight4()];
+	// teamName = 'http://blog.livedoor.jp/tama_poke/archives/1076576471.html';
+	// return [tyranitar2(), corviknight5(), dragapultScarf3(), rotomWash3(), umbreon(), mimikyu5()];
+	// teamName = 'https://www.asamipoke.com/entry/2020/01/01/172111';
+	// return [darmanitan3(), corviknight6(), excadrill4(), togekiss1(), gastrodon2(), umbreon2()];
+	// teamName = 'https://nicoyazawa.hatenablog.com/entry/2020/01/01/115108';
+	// return [hippowdon2(), excadrill5(), hydreigon4(), aegislash(), mimikyu6(), cinderace2()];
+	// teamName = 'http://nine-poke.hatenablog.com/entry/2020/01/01/234815';
+	// return [gardevoir(), hydreigon5(), hippowdon3(), rotomWash4(), corviknight7(), mimikyu7()];
+	// teamName = 'http://radian0202.hatenablog.com/entry/2020/01/02/082417';
+	// return [dracovish(), corviknight8(), grimmsnarl3(), glalie2(), seismitoad(), toxtricity()];
+	// teamName = 'https://pokesol.com/team/party4';
+	// return [dragapult5(), mimikyu(), cloyster4(), diggersby(), hydreigon6(), cinderace3()];
+	// teamName = 'http://barapoke.hatenablog.com/entry/2020/01/02/152921';
+	// return [beartic(), seismitoad2(), coalossal(), dragapult6(), mimikyu7(), umbreon()];
+	// teamName = 'http://yojyosyugi.hatenablog.com/entry/2020/01/02/185835';
+	// return [sirfetchd3(), grimmsnarl4(), mimikyu8(), gyarados2(), cloyster5(), durant4()];
+	// teamName = 'http://kuuri-yatume.hatenablog.com/entry/2020/01/02/214055';
+	// return [umbreon(), dragapult7(), toxapex2(), hydreigon7(), coalossal(), corviknight9()];
+	// teamName = 'https://pokekare.info/null_ant/';
+	// return [typenull2(), durant5(), hippowdon4(), charizard(), gyarados(), dragapult8()];
+	// teamName = 'http://warbler-p.hatenablog.jp/entry/2020/01/01/225057';
+	// return [whimsicott3(), gothitelle(), hawlucha(), mimikyu9(), hydreigon6(), milotic()];
+	// teamName = 'http://irohapoke15.hatenablog.com/entry/2020/01/02/161628';
+	// return [typenull3(), durant5(), dragapultScarf2(), rotomWash5(), sylveon2(), hawlucha2()];
+	// teamName = 'http://toropoke.hatenablog.com/entry/2020/01/01/172212';
+	// return [durant6(), mimikyu2(), hydreigon8(), rotomWash6(), darmanitan4(), dragapult9()];
+	// teamName = 'http://harupokeart.blog.fc2.com/blog-entry-26.html';
+	// return [tyranitar3(), excadrill6(), inteleon(), dragapult10(), rotomCut2(), mimikyu10()];
+	// teamName = 'https://asahinapoke.hatenablog.com/entry/2020/01/02/111138';
+	// return [dracozolt2(), toxapex3(), corviknight10(), dragapult11(), tyranitar4(), dmaxTogekiss3()];
+	// teamName = 'http://p-poke.hatenablog.com/entry/2020/01/01/162819';
+	// return [dragapult12(), mimikyu2(), hydreigon9(), snorlax3(), duraludon(), darmanitan5()];
+	// teamName = 'http://xxcr7xx.hatenadiary.jp/entry/2020/01/01/162706';
 	//return [mimikyu11()];
-	// http://albapoke0818.hatenablog.com/entry/2020/01/01/234439
-	return [tyranitar5(), dragapult13(), corviknight11(), snorlax4(), seismitoad3(), mimikyu12()];
-	// http://nikonikopoke.hatenablog.com/entry/2020/01/02/012811
-	return [dmaxTogekiss4(), doublade(), gyarados3(), snorlax5(), excadrill7(), dragapult14()];
-	// http://blog.livedoor.jp/mirai_minyato/archives/81876541.html
+	// teamName = 'http://albapoke0818.hatenablog.com/entry/2020/01/01/234439';
+	// return [tyranitar5(), dragapult13(), corviknight11(), snorlax4(), seismitoad3(), mimikyu12()];
+	// teamName = 'http://nikonikopoke.hatenablog.com/entry/2020/01/02/012811';
+	// return [dmaxTogekiss4(), doublade(), gyarados3(), snorlax5(), excadrill7(), dragapult14()];
+	teamName = 'http://blog.livedoor.jp/mirai_minyato/archives/81876541.html';
 	return [toxtricity2(), bisharp(), dmaxTogekiss5(), corviknight12(), mimikyu11(), dracovish2()];
 }
 
@@ -165,6 +167,7 @@ const conn = Mysql.createConnection({
 	user: 'root',
 	database: 'pokeai_dev'
 });
+
 
 // 接続
 conn.connect();
@@ -198,8 +201,9 @@ function setPokemon(teamId: number, pokemonSet: PokemonSet) {
 		if (err) {
 			throw err;
 		}
+		const createTeam = team();
 		conn.query("INSERT INTO teams set ?", {
-			name: 'AI01',
+			name: teamName,
 			rate: 1500
 		}, function (error, results, fields) {
 			if (error) {
@@ -209,7 +213,7 @@ function setPokemon(teamId: number, pokemonSet: PokemonSet) {
 				});
 			}
 			const id = results.insertId;
-			team().map(pokemonSet => {
+			createTeam.map(pokemonSet => {
 				setPokemon(id, pokemonSet)
 			});
 

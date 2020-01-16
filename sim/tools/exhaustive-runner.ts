@@ -12,7 +12,7 @@ import {RandomPlayerAI} from './random-player-ai';
 import {AIOptions, Runner} from './runner';
 const toID = Dex.getId;
 
-interface Pools {
+export interface Pools {
 	pokemon: Pool;
 	items: Pool;
 	abilities: Pool;
@@ -172,7 +172,7 @@ export class ExhaustiveRunner {
 // Generates random teams of pokemon suitable for use in custom games (ie. without team
 // validation). Coordinates with the CoordinatedPlayerAI below through Pools to ensure as
 // many different options as possible get exercised in battle.
-class TeamGenerator {
+export class TeamGenerator {
 	// By default, the TeamGenerator generates sets completely at random which unforunately means
 	// certain signature combinations (eg. Mega Stone/Z Moves which only work for specific Pokemon)
 	// are unlikely to be chosen. To combat this, we keep a mapping of these combinations and some
@@ -209,7 +209,17 @@ class TeamGenerator {
 		const team: PokemonSet[] = [];
 		for (const pokemon of this.pools.pokemon.next(6)) {
 			const template = this.dex.getTemplate(pokemon);
-			const randomEVs = () => this.prng.next(253);
+			let evsAve = 0;
+
+			const randomEVs = () => {
+				let max = 127 - evsAve;
+				if(max >= 63){
+					max = 63
+				}
+				const ev = this.prng.next(max + 1);
+				evsAve += ev;
+				return ev * 4;
+			};
 			const randomIVs = () => this.prng.next(32);
 
 			let item;
@@ -222,6 +232,7 @@ class TeamGenerator {
 			} else {
 				item = this.dex.gen >= 2 ? this.pools.items.next() : '';
 			}
+
 
 			team.push({
 				name: template.baseSpecies,
@@ -239,12 +250,12 @@ class TeamGenerator {
 					spe: randomEVs(),
 				},
 				ivs: {
-					hp: randomIVs(),
-					atk: randomIVs(),
-					def: randomIVs(),
-					spa: randomIVs(),
-					spd: randomIVs(),
-					spe: randomIVs(),
+					hp: 31,
+					atk:31,
+					def: 31,
+					spa: 31,
+					spd: 31,
+					spe: 31,
 				},
 				nature: this.prng.sample(this.natures),
 				level: this.prng.next(50, 100),
@@ -256,7 +267,7 @@ class TeamGenerator {
 	}
 }
 
-class Pool {
+export class Pool {
 	readonly possible: string[];
 
 	private readonly prng: PRNG;
