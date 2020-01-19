@@ -20,7 +20,27 @@ type SparseStatsTable = Partial<StatsTable>;
 type BoostName = StatNameExceptHP | 'accuracy' | 'evasion';
 type BoostsTable = {[boost in BoostName]: number };
 type SparseBoostsTable = Partial<BoostsTable>;
-type Nonstandard = 'Glitch' | 'Past' | 'Future' | 'CAP' | 'LGPE' | 'Pokestar' | 'Custom';
+type Nonstandard = 'Past' | 'Future' | 'Unobtainable' | 'CAP' | 'LGPE' | 'Custom';
+/**
+ * Describes the acceptable target(s) of a move.
+ * adjacentAlly - Only relevant to Doubles or Triples, the move only targets an ally of the user.
+ * adjacentAllyOrSelf - The move can target the user or its ally.
+ * adjacentFoe - The move can target a foe, but not (in Triples) a distant foe.
+ * all - The move targets the field or all Pokémon at once.
+ * allAdjacent - The move is a spread move that also hits the user's ally.
+ * allAdjacentFoes - The move is a spread move.
+ * allies - The move affects all active Pokémon on the user's team.
+ * allySide - The move adds a side condition on the user's side.
+ * allyTeam - The move affects all unfainted Pokémon on the user's team.
+ * any - The move can hit any other active Pokémon, not just those adjacent.
+ * foeSide - The move adds a side condition on the foe's side.
+ * normal - The move can hit one adjacent Pokémon of your choice.
+ * randomNormal - The move targets an adjacent foe at random.
+ * scripted - The move targets the foe that damaged the user.
+ * self - The move affects the user of the move.
+ */
+type MoveTarget = 'adjacentAlly' | 'adjacentAllyOrSelf' | 'adjacentFoe' | 'all' | 'allAdjacent' | 'allAdjacentFoes' | 'allies' | 'allySide' | 'allyTeam' | 'any' | 'foeSide' | 'normal' | 'randomNormal' | 'scripted' | 'self';
+
 type PokemonSet = {
 	name: string,
 	species: string,
@@ -207,6 +227,7 @@ interface EventMethods {
 	onEffectiveness?: MoveEventMethods['onEffectiveness']
 	onFaint?: CommonHandlers['VoidEffect']
 	onFlinch?: ((this: Battle, pokemon: Pokemon) => boolean | void) | boolean
+	onFractionalPriority?: CommonHandlers['ModifierSourceMove']
 	onHit?: MoveEventMethods['onHit']
 	onImmunity?: (this: Battle, type: string, pokemon: Pokemon) => void
 	onLockMove?: string | ((this: Battle, pokemon: Pokemon) => void | string)
@@ -625,6 +646,7 @@ interface EventMethods {
 	onFoeModifyDefPriority?: number
 	onFoeRedirectTargetPriority?: number
 	onFoeTrapPokemonPriority?: number
+	onFractionalPriorityPriority?: number
 	onHitPriority?: number
 	onModifyAccuracyPriority?: number
 	onModifyAtkPriority?: number
@@ -777,7 +799,7 @@ interface MoveData extends EffectData, MoveEventMethods {
 	flags: AnyObject
 	pp: number
 	priority: number
-	target: string
+	target: MoveTarget
 	type: string
 	alwaysHit?: boolean
 	baseMoveType?: string
@@ -830,6 +852,11 @@ interface MoveData extends EffectData, MoveEventMethods {
 	struggleRecoil?: boolean
 	terrain?: string
 	thawsTarget?: boolean
+	/**
+	 * Tracks the original target through Ally Switch and other switch-out-and-back-in
+	 * situations, rather than just targeting a slot. (Stalwart, Snipe Shot)
+	 */
+	tracksTarget?: boolean
 	useTargetOffensive?: boolean
 	useSourceDefensiveAsOffensive?: boolean
 	volatileStatus?: string
@@ -878,6 +905,7 @@ interface ActiveMove extends BasicEffect, MoveData {
 	hasAuraBreak?: boolean
 	hasBounced?: boolean
 	hasSheerForce?: boolean
+	/** Is the move called by Dancer? Used to prevent infinite Dancer recursion. */
 	isExternal?: boolean
 	lastHit?: boolean
 	magnitude?: number
@@ -1060,8 +1088,8 @@ interface Format extends Readonly<BasicEffect & FormatsData> {
 
 type SpreadMoveTargets = (Pokemon | false | null)[]
 type SpreadMoveDamage = (number | boolean | undefined)[]
-type ZMoveOptions = ({move: string, target: string} | null)[]
-type DynamaxOptions = {maxMoves: ({move: string, target: string})[], gigantamax?: string}
+type ZMoveOptions = ({move: string, target: MoveTarget} | null)[]
+type DynamaxOptions = {maxMoves: ({move: string, target: MoveTarget})[], gigantamax?: string}
 
 interface BattleScriptsData {
 	gen: number
@@ -1092,7 +1120,7 @@ interface BattleScriptsData {
 	resolveAction?: (this: Battle, action: AnyObject, midTurn?: boolean) => Actions.Action
 	runAction?: (this: Battle, action: Actions.Action) => void
 	runMegaEvo?: (this: Battle, pokemon: Pokemon) => boolean
-	runMove?: (this: Battle, moveOrMoveName: Move | string, pokemon: Pokemon, targetLoc: number, sourceEffect?: Effect | null, zMove?: string, externalMove?: boolean, maxMove?: string) => void
+	runMove?: (this: Battle, moveOrMoveName: Move | string, pokemon: Pokemon, targetLoc: number, sourceEffect?: Effect | null, zMove?: string, externalMove?: boolean, maxMove?: string, originalTarget?: Pokemon) => void
 	runMoveEffects?: (this: Battle, damage: SpreadMoveDamage, targets: SpreadMoveTargets, source: Pokemon, move: ActiveMove, moveData: ActiveMove, isSecondary?: boolean, isSelf?: boolean) => SpreadMoveDamage
 	runZPower?: (this: Battle, move: ActiveMove, pokemon: Pokemon) => void
 	secondaries?: (this: Battle, targets: SpreadMoveTargets, source: Pokemon, move: ActiveMove, moveData: ActiveMove, isSelf?: boolean) => void
@@ -1191,12 +1219,16 @@ namespace Actions {
 		order: 3 | 5 | 200 | 201 | 199;
 		/** priority of the action (lower first) */
 		priority: number;
+		/** fractional priority of the action (lower first) */
+		fractionalPriority: number;
 		/** speed of pokemon using move (higher first if priority tie) */
 		speed: number;
 		/** the pokemon doing the move */
 		pokemon: Pokemon;
 		/** location of the target, relative to pokemon's side */
 		targetLoc: number;
+		/** original target pokemon, for target-tracking moves */
+		originalTarget: Pokemon;
 		/** a move to use (move action only) */
 		moveid: ID
 		/** a move to use (move action only) */
@@ -1282,7 +1314,7 @@ namespace RandomTeamsTypes {
 		toxicSpikes?: number;
 		stickyWeb?: number;
 		rapidSpin?: number;
-		hazardClear?: number;
+		defog?: number;
 		illusion?: number;
 	}
 	export interface FactoryTeamDetails {

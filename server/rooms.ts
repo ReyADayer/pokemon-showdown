@@ -72,7 +72,7 @@ export abstract class BasicRoom {
 	parent: Room | null;
 	aliases: string[] | null;
 	userCount: number;
-	auth: {[userid: string]: string} | null;
+	auth: {[userid: string]: GroupSymbol} | null;
 	game: RoomGame | null;
 	active: boolean;
 	muteTimer: NodeJS.Timer | null;
@@ -83,7 +83,7 @@ export abstract class BasicRoom {
 	isPrivate: boolean | 'hidden' | 'voice';
 	hideReplay: boolean;
 	isPersonal: boolean;
-	isHelp: string | boolean;
+	isHelp: boolean;
 	isOfficial: boolean;
 	reportJoins: boolean;
 	batchJoins: number;
@@ -179,7 +179,7 @@ export abstract class BasicRoom {
 	sendMods(data: string) {
 		this.sendRankedUsers(data, '%');
 	}
-	sendRankedUsers(data: string, minRank = '+') {
+	sendRankedUsers(data: string, minRank: GroupSymbol = '+') {
 		if (this.staffRoom) {
 			if (!this.log) throw new Error(`Staff room ${this.roomid} has no log`);
 			this.log.add(data);
@@ -308,7 +308,7 @@ export abstract class BasicRoom {
 	/**
 	 * Gets the group symbol of a user in the room.
 	 */
-	getAuth(user: User): string {
+	getAuth(user: User): GroupSymbol {
 		if (this.auth && user.id in this.auth) {
 			return this.auth[user.id];
 		}
@@ -1187,7 +1187,7 @@ export class BasicChatRoom extends BasicRoom {
 	}
 	pokeExpireTimer() {
 		if (this.expireTimer) clearTimeout(this.expireTimer);
-		if ((this.isPersonal && !this.isHelp) || (this.isHelp && this.isHelp !== 'open')) {
+		if (this.isPersonal || this.isHelp) {
 			this.expireTimer = setTimeout(() => this.expire(), TIMEOUT_INACTIVE_DEALLOCATE);
 		} else {
 			this.expireTimer = null;
@@ -1377,6 +1377,9 @@ export class BasicChatRoom extends BasicRoom {
 		}
 		this.active = false;
 
+		// Ensure there aren't any pending messages that could restart the expire timer
+		this.update();
+
 		// Clear any active timers for the room
 		if (this.muteTimer) {
 			clearTimeout(this.muteTimer);
@@ -1432,7 +1435,7 @@ export class GameRoom extends BasicChatRoom {
 	game: RoomGame;
 	modchatUser: string;
 	active: boolean;
-	auth: {[userid: string]: string};
+	auth: {[userid: string]: GroupSymbol};
 	constructor(roomid: RoomID, title?: string, options: AnyObject = {}) {
 		options.logTimes = false;
 		options.autoTruncate = false;

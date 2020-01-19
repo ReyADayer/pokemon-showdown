@@ -206,10 +206,8 @@ let BattleStatuses = {
 		duration: 1,
 		onBeforeMovePriority: 8,
 		onBeforeMove(pokemon) {
-			if (!this.runEvent('Flinch', pokemon)) {
-				return;
-			}
 			this.add('cant', pokemon, 'flinch');
+			this.runEvent('Flinch', pokemon);
 			return false;
 		},
 	},
@@ -727,8 +725,8 @@ let BattleStatuses = {
 		noCopy: true,
 		duration: 3,
 		onStart(pokemon) {
-			if (pokemon.species === 'Eternatus-Eternamax') return;
 			pokemon.removeVolatile('substitute');
+			if (pokemon.illusion) this.singleEvent('End', this.dex.getAbility('Illusion'), pokemon.abilityData, pokemon);
 			this.add('-start', pokemon, 'Dynamax');
 			if (pokemon.canGigantamax) this.add('-formechange', pokemon, pokemon.canGigantamax);
 			if (pokemon.species === 'Shedinja') return;
@@ -740,15 +738,16 @@ let BattleStatuses = {
 			pokemon.hp = Math.floor(pokemon.hp * ratio);
 			this.add('-heal', pokemon, pokemon.getHealth, '[silent]');
 		},
-		onSwitchIn(pokemon) {
-			// Special case for Eternamax
-			if (pokemon.species !== 'Eternatus-Eternamax') return;
-			pokemon.removeVolatile('substitute');
-			this.effectData.duration = 0;
+		onTryAddVolatile(status, pokemon) {
+			if (status.id === 'flinch') return null;
 		},
-		onFlinch: false,
 		onBeforeSwitchOut(pokemon) {
-			if (pokemon.species !== 'Eternatus-Eternamax') pokemon.removeVolatile('dynamax');
+			pokemon.removeVolatile('dynamax');
+		},
+		onSourceModifyDamage(damage, source, target, move) {
+			if (move.id === 'behemothbash' || move.id === 'behemothblade' || move.id === 'dynamaxcannon') {
+				return this.chainModify(2);
+			}
 		},
 		onDragOutPriority: 2,
 		onDragOut(pokemon) {
@@ -805,17 +804,6 @@ let BattleStatuses = {
 				}
 			}
 			return [type];
-		},
-	},
-	eternatuseternamax: {
-		name: 'Eternatus-Eternamax',
-		id: 'eternatuseternamax',
-		num: 890,
-		onStart(pokemon) {
-			if (pokemon.transformed) return;
-			pokemon.addVolatile('dynamax');
-			pokemon.maxhp = Math.floor(pokemon.maxhp * 2);
-			pokemon.hp = Math.floor(pokemon.hp * 2);
 		},
 	},
 };

@@ -20,6 +20,10 @@ interface MoveSlot {
 	virtual?: boolean;
 }
 
+interface EffectState {
+	[k: string]: any;
+}
+
 export class Pokemon {
 	readonly side: Side;
 	readonly battle: Battle;
@@ -50,11 +54,11 @@ export class Pokemon {
 
 	baseTemplate: Template;
 	template: Template;
-	speciesData: AnyObject;
+	speciesData: EffectState;
 
 	status: ID;
-	statusData: AnyObject;
-	volatiles: AnyObject;
+	statusData: EffectState;
+	volatiles: {[id: string]: EffectState};
 	showCure?: boolean;
 
 	/**
@@ -82,10 +86,10 @@ export class Pokemon {
 
 	baseAbility: ID;
 	ability: ID;
-	abilityData: {[k: string]: string | Pokemon};
+	abilityData: EffectState;
 
 	item: ID;
-	itemData: {[k: string]: string | Pokemon};
+	itemData: EffectState;
 	lastItem: ID;
 	usedItemThisTurn: boolean;
 	ateBerry: boolean;
@@ -255,15 +259,7 @@ export class Pokemon {
 		const genders: {[key: string]: GenderName} = {M: 'M', F: 'F', N: 'N'};
 		this.gender = genders[set.gender] || this.template.gender || (this.battle.random() * 2 < 1 ? 'M' : 'F');
 		if (this.gender === 'N') this.gender = '';
-
-		const maxHappiness = (this.battle.gen <= 7 ? 255 : 160);
-		if (typeof set.happiness === 'number') {
-			set.happiness = this.battle.dex.clampIntRange(set.happiness, 0, maxHappiness);
-		} else {
-			set.happiness = maxHappiness;
-		}
-		this.happiness = set.happiness;
-
+		this.happiness = typeof set.happiness === 'number' ? this.battle.dex.clampIntRange(set.happiness, 0, 255) : 255;
 		this.pokeball = this.set.pokeball || 'pokeball';
 
 		this.baseMoveSlots = [];
@@ -605,7 +601,7 @@ export class Pokemon {
 	}
 
 	getMoveTargets(move: Move, target: Pokemon): {targets: Pokemon[], pressureTargets: Pokemon[]} {
-		const targets = [];
+		let targets = [];
 		let pressureTargets;
 
 		switch (move.target) {
@@ -632,15 +628,18 @@ export class Pokemon {
 				this.battle.retargetLastMove(targets[targets.length - 1]);
 			}
 			break;
+		case 'allies':
+			targets = this.allies();
+			break;
 		default:
 			const selectedTarget = target;
 			if (!target || (target.fainted && target.side !== this.side)) {
 				// If a targeted foe faints, the move is retargeted
-				const possibleTarget = this.battle.resolveTarget(this, move);
+				const possibleTarget = this.battle.getRandomTarget(this, move);
 				if (!possibleTarget) return {targets: [], pressureTargets: []};
 				target = possibleTarget;
 			}
-			if (target.side.active.length > 1) {
+			if (target.side.active.length > 1 && !move.tracksTarget) {
 				if (!move.flags['charge'] || this.volatiles['twoturnmove'] ||
 						(move.id.startsWith('solarb') && this.battle.field.isWeather(['sunnyday', 'desolateland'])) ||
 						(this.hasItem('powerherb') && move.id !== 'skydrop')) {
@@ -669,7 +668,7 @@ export class Pokemon {
 
 	ignoringAbility() {
 		const abilities = [
-			'battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange',
+			'battlebond', 'comatose', 'disguise', 'gulpmissile', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange',
 		];
 		// Check if any active pokemon have the ability Neutralizing Gas
 		let neutralizinggas = false;
@@ -1367,15 +1366,17 @@ export class Pokemon {
 		return this.battle.dex.getEffectByID(this.status);
 	}
 
-	eatItem(source?: Pokemon, sourceEffect?: Effect) {
+	eatItem(force?: boolean, source?: Pokemon, sourceEffect?: Effect) {
 		if (!this.hp || !this.isActive) return false;
 		if (!this.item) return false;
 
 		if (!sourceEffect && this.battle.effect) sourceEffect = this.battle.effect;
 		if (!source && this.battle.event && this.battle.event.target) source = this.battle.event.target;
 		const item = this.getItem();
-		if (this.battle.runEvent('UseItem', this, null, null, item) &&
-			this.battle.runEvent('TryEatItem', this, null, null, item)) {
+		if (
+			this.battle.runEvent('UseItem', this, null, null, item) &&
+			(force || this.battle.runEvent('TryEatItem', this, null, null, item))
+		) {
 
 			this.battle.add('-enditem', this, item, '[eat]');
 
@@ -1385,11 +1386,11 @@ export class Pokemon {
 			if (item.id === 'leppaberry') {
 				switch (this.pendingStaleness) {
 				case 'internal':
-						if (this.staleness !== 'external') this.staleness = 'internal';
-						break;
+					if (this.staleness !== 'external') this.staleness = 'internal';
+					break;
 				case 'external':
-						this.staleness = 'external';
-						break;
+					this.staleness = 'external';
+					break;
 				}
 				this.pendingStaleness = undefined;
 			}
@@ -1495,7 +1496,7 @@ export class Pokemon {
 		const oldAbility = this.ability;
 		if (!isFromFormeChange) {
 			const abilities = [
-				'battlebond', 'comatose', 'disguise', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange',
+				'battlebond', 'comatose', 'disguise', 'gulpmissile', 'hungerswitch', 'iceface', 'multitype', 'powerconstruct', 'rkssystem', 'schooling', 'shieldsdown', 'stancechange',
 			];
 			if ('illusion' === ability.id || abilities.includes(ability.id) || abilities.includes(oldAbility)) return false;
 			if (this.battle.gen >= 7 && (ability.id === 'zenmode' || oldAbility === 'zenmode')) return false;
