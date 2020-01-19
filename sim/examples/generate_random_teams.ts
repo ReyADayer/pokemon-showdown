@@ -36,23 +36,25 @@ function setPokemon(teamId: number, pokemonSet: PokemonSet) {
 	});
 }
 
-(async () => {
-	for (let step = 0; step < 1; step++) {
-		try {
-			await team().then(team => {
-				conn.query("INSERT INTO teams set ?", {
-					rate: 1500
-				}, function (error, results, fields) {
-					const id = results.insertId;
-					team.map(pokemonSet => {
-						setPokemon(id, pokemonSet)
-					})
-				});
-			});
-		} catch (e) {
+// (async () => {
+// // 	for (let step = 0; step < 1; step++) {
+// // 		try {
+// // 			await team().then(team => {
+// // 				conn.query("INSERT INTO teams set ?", {
+// // 					rate: 1500
+// // 				}, function (error, results, fields) {
+// // 					const id = results.insertId;
+// // 					team.map(pokemonSet => {
+// // 						setPokemon(id, pokemonSet)
+// // 					})
+// // 				});
+// // 			});
+// // 		} catch (e) {
+// //
+// // 		}
+// // 	}
+// // })();
 
-		}
-	}
-})();
+team();
 
 console.log("end");

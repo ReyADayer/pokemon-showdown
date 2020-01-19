@@ -233,8 +233,7 @@ export class TeamGenerator {
 				item = this.dex.gen >= 2 ? this.pools.items.next() : '';
 			}
 
-
-			team.push({
+			const poke = {
 				name: template.baseSpecies,
 				species: template.species,
 				gender: template.gender,
@@ -261,7 +260,8 @@ export class TeamGenerator {
 				level: this.prng.next(50, 100),
 				happiness: (this.dex.gen <= 7 ? this.prng.next(256) : 160),
 				shiny: this.prng.randomChance(1, 1024),
-			});
+			};
+			team.push(poke);
 		}
 		return team;
 	}
